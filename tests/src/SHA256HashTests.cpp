@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2000-2024 Xavier Leclercq
+// SPDX-FileCopyrightText: 2000-2025 Xavier Leclercq
 // SPDX-License-Identifier: MIT
 
 #include "SHA256HashTests.hpp"
@@ -32,9 +32,9 @@ void SHA256HashTests::CreationTest1(Test& test)
 void SHA256HashTests::ValueTest1(Test& test)
 {
     SHA256Hash hash;
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 32> referenceValue =
+    std::array<Octet, 32> referenceValue =
     {
         0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14,
         0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24,
@@ -63,9 +63,9 @@ void SHA256HashTests::ValueTest2(Test& test)
     SHA256Hash hash;
     const char* text = "abc";
     hash.update(text, strlen(text));
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 32> referenceValue =
+    std::array<Octet, 32> referenceValue =
     {
         0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea,
         0x41, 0x41, 0x40, 0xde, 0x5d, 0xae, 0x22, 0x23,
@@ -94,9 +94,9 @@ void SHA256HashTests::ValueTest3(Test& test)
     SHA256Hash hash;
     const char* text = "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu";
     hash.update(text, strlen(text));
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 64> referenceValue =
+    std::array<Octet, 64> referenceValue =
     {
         0x8E, 0x95, 0x9B, 0x75, 0xDA, 0xE3, 0x13, 0xDA,
         0x8C, 0xF4, 0xF7, 0x28, 0x14, 0xFC, 0x14, 0x3F,
@@ -129,9 +129,9 @@ void SHA256HashTests::ValueTest4(Test& test)
     SHA256Hash hash;
     std::string text(1000000, 'a');
     hash.update(text.c_str(), text.size());
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 32> referenceValue =
+    std::array<Octet, 32> referenceValue =
     {
         0xcd, 0xc7, 0x6e, 0x5c, 0x99, 0x14, 0xfb, 0x92,
         0x81, 0xa1, 0xc7, 0xe2, 0x84, 0xd7, 0x3e, 0x67,
@@ -163,9 +163,9 @@ void SHA256HashTests::ValueTest5(Test& test)
     {
         hash.update(text.c_str(), text.size());
     }
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 64> referenceValue =
+    std::array<Octet, 64> referenceValue =
     {
         0xb4, 0x7c, 0x93, 0x34, 0x21, 0xea, 0x2d, 0xb1,
         0x49, 0xad, 0x6e, 0x10, 0xfc, 0xe6, 0xc7, 0xf9,
@@ -197,9 +197,9 @@ void SHA256HashTests::UpdateFromFileTest1(Test& test)
 {
     SHA256Hash hash;
     hash.updateFromFile(test.context().getDataPath("EmptyFile.txt").string());
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 32> referenceValue =
+    std::array<Octet, 32> referenceValue =
     {
         0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14,
         0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24,
@@ -227,9 +227,9 @@ void SHA256HashTests::UpdateFromFileTest2(Test& test)
 {
     SHA256Hash hash;
     hash.updateFromFile(test.context().getDataPath("abc.txt").string());
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 32> referenceValue =
+    std::array<Octet, 32> referenceValue =
     {
         0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea,
         0x41, 0x41, 0x40, 0xde, 0x5d, 0xae, 0x22, 0x23,
@@ -257,9 +257,9 @@ void SHA256HashTests::UpdateFromFileTest3(Test& test)
 {
     SHA256Hash hash;
     hash.updateFromFile(test.context().getDataPath("smallfile.txt").string());
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 64> referenceValue =
+    std::array<Octet, 64> referenceValue =
     {
         0x8E, 0x95, 0x9B, 0x75, 0xDA, 0xE3, 0x13, 0xDA,
         0x8C, 0xF4, 0xF7, 0x28, 0x14, 0xFC, 0x14, 0x3F,
@@ -302,9 +302,9 @@ void SHA256HashTests::UpdateFromFileTest4(Test& test)
 
     SHA256Hash hash;
     hash.updateFromFile(testFilePath);
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 32> referenceValue =
+    std::array<Octet, 32> referenceValue =
     {
         0xcd, 0xc7, 0x6e, 0x5c, 0x99, 0x14, 0xfb, 0x92,
         0x81, 0xa1, 0xc7, 0xe2, 0x84, 0xd7, 0x3e, 0x67,
@@ -346,9 +346,9 @@ void SHA256HashTests::UpdateFromFileTest5(Test& test)
 
     SHA256Hash hash;
     hash.updateFromFile(testFilePath);
-    const StackByteBuffer<32>& value = hash.value();
+    const InplaceOctetBuffer<32>& value = hash.value();
 
-    std::array<unsigned char, 64> referenceValue =
+    std::array<Octet, 64> referenceValue =
     {
         0xb4, 0x7c, 0x93, 0x34, 0x21, 0xea, 0x2d, 0xb1,
         0x49, 0xad, 0x6e, 0x10, 0xfc, 0xe6, 0xc7, 0xf9,

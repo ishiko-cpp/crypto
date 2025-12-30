@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2000-2024 Xavier Leclercq
+// SPDX-FileCopyrightText: 2000-2025 Xavier Leclercq
 // SPDX-License-Identifier: MIT
 
 #ifndef GUARD_ISHIKO_CPP_CRYPTO_SHA512HASH_HPP
@@ -14,7 +14,7 @@ namespace Ishiko
     class SHA512Hash
     {
     public:
-        typedef StackByteBuffer<64> Value;
+        typedef InplaceOctetBuffer<64> Value;
 
         /// The constructor.
         SHA512Hash();
